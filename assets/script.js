@@ -1,17 +1,7 @@
-// const intro = {
-//   Title = document.createElement("h1"),
-//   Title:className= "introTitle",
-//   Title:textContent("Coding Quiz Challenge"),
-//   introText = document.createElement("p"),
-//   introText:className = "introText",
-//   introText:textContent("Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score/time by 10 seconds"),
-//   introBtn = document.createElement("button"),
-//   introBtn:className = "introBtn",
-//   introBtn:innerText = "Start",
-//}
-
-var timer = 10;
-
+var timer = 60;
+var startBtn = document.querySelector("#introBtn");
+var introH1 = document.querySelector("#intro-h1");
+var introText = document.querySelector("#intro-text");
 
 const Questions = [{
     id: 0,
@@ -79,6 +69,7 @@ var screen = document.querySelector("#content-box");
 // Set start
 var start = true;
 var score = 0;
+var id = 0;
 
 function clock () {
   var countdown = setInterval(function() {
@@ -96,104 +87,105 @@ function clock () {
     }
   }, 1000);
 }
-clock();
 
+
+function begin () {
+  introH1.style.display = "none";
+  introText.style.display = "none";
+  startBtn.style.display = "none";
+  iterate();
+  clock();
+}
+
+// if (start) {
+//   iterate("0");
+// }
+
+// next.addEventListener("click", () => {
+//   start = false;
+//   if (id < 2) {
+//       id++;
+//       iterate(id);
+//       console.log(id);
+//   }
+
+// })
+// var result = document.getElementsByClassName("result");
+    // result[0].innerText = "";
+  
 
 // Cycle through question array
-function iterate(id) {
-  
-    // Getting the result display section
-    var result = document.getElementsByClassName("result");
-    result[0].innerText = "";
-  
-    // Getting the question
-    const question = document.getElementById("question-box");
-  
-  
-    // Setting the question text
-    question.innerText = Questions[id].q;
-  
-    // Creating answer choices
-    var answerOne = document.createElement("button");
-    answerOne.setAttribute("class", "answerBtn");
-  
-    var answerTwo = document.createElement("button");
-    answerTwo.className = "answerBtn";
+function iterate() {
+  const question = document.getElementById("question-box");
+  const answerList = document.querySelector("#answer-box");
+  const showResult = document.querySelector("#result");
+  var ansTestValue = "";
+ 
+  // loops through Questions array and shows "q" (the question)
+  for (var i = 0; i < Questions.length; i++) {
+    Questions.id = i;
+    question.innerText = Questions[i].q;
+    console.log(Questions[i].q);
 
-    var answerThree = document.createElement("button");
-    answerThree.className = "answerBtn";
-
-    var answerFour = document.createElement("button");
-    answerFour.className = "answerBtn";
-  
-    // Providing answer text 
-    answerOne.innerText = Questions[id].a[0].text;
-    console.log(answerOne);
-    answerTwo.innerText = Questions[id].a[1].text;
-    answerThree.innerText = Questions[id].a[2].text;
-    answerFour.innerText = Questions[id].a[3].text;
-  
-    // Providing the true or false value to the options
-    answerOne.value = Questions[id].a[0].isCorrect;
-    answerTwo.value = Questions[id].a[1].isCorrect;
-    answerThree.value = Questions[id].a[2].isCorrect;
-    answerFour.value = Questions[id].a[3].isCorrect;
-  
-    var selected = "";
-  
-    // Show selection for answerOne
-    answerOne.addEventListener("click", () => {
-       selected = answerOne.value;
-    })
-  
-    // Show selection for answerTwo
-    answerTwo.addEventListener("click", () => {
-       selected = answerTwo.value;
-    })
-  
-    // Show selection for answerThree
-    answerThree.addEventListener("click", () => {
-        selected = answerThree.value;
-    })
-  
-    // Show selection for answerFour
-    answerFour.addEventListener("click", () => {
-        selected = answerFour.value;
-    })
-  
-    // Grabbing the evaluate button
-    const evaluate = document.getElementsByClassName("evaluate");
-    
-    // Evaluate method
-//     evaluate[0].addEventListener("click", () => {
-//         if (selected == "true") {
-//             result[0].innerHTML = "Correct";
-//           } else {
-//             result[0].innerHTML = "Wrong";
+    console.log(Questions[i].a.length);
      
-//         }
-//     })
+    // loops through "a" (answer choices) array of Questions array, and creates answer choice buttons
+      for (var j=0; j < Questions[id].a.length; j++) {
+        const aId= j;
+        console.log(Questions[id].a[aId]);
+        console.log(Questions[id].a[aId].text);
+      
+        var answer = document.createElement("button");
+        answer.setAttribute("class", "answerBtn");
+        //answer.
+        answer.innerText = Questions[id].a[aId].text;
+        console.log(answer.ansID);
+      
+        answer.value = Questions[id].a[aId].isCorrect;
+        ansTestValue = answer.value;
+        answerList.appendChild(answer);
+
+      }
+
+      var ansEval = function () {
+        if (ansTestValue = true) {
+          showResult.textContent = "Correct!  Good job, 10pts added";
+          score = score + 10;
+  
+        } else {
+          showResult.textContent = "Wrong Answer!.  10pts deducted";
+          score = score - 10;
+        }
+      }
+      
+      return answer;
+      answerBtn.addEventListener("click", ansEval);
+
+     console.log(answerList);
+    
+    //console.log(answer.value);
+     
+    
+   
+    console.log(ansTestValue);
+
+    
+    
+
+   
+  }     
 }
   
 
 
-if (start) {
-    iterate("0");
-}
+
   
-// Next button and method
-const next = document.getElementsByClassName('next')[0];
-var id = 0;
   
-next.addEventListener("click", () => {
-    start = false;
-    if (id < 2) {
-        id++;
-        iterate(id);
-        console.log(id);
-    }
-  
-})
+startBtn.addEventListener("click", begin);
+
+
+
+
 // var taskFormHandler = function (event) {
 //   event.preventDefault();
 //   var taskNameInput = document.querySelector("input[name='task-name']").value;
@@ -467,3 +459,69 @@ next.addEventListener("click", () => {
 // pageContentEl.addEventListener("change", taskStatusChangeHandler);
 
 // loadTasks();
+
+
+ // Creating answer choices
+    // var answerOne = document.getElementById("#answer-box");
+    // answerOne = document.createElement("button");
+    // answerOne.setAttribute("class", "answerBtn");
+    // answerOne.innerText = Questions[id].a[0].text;
+    // answerOne.value = Questions[id].a[0].isCorrect;
+    // console.log(answerOne);
+  
+    // var answerTwo = document.createElement("button");
+    // answerTwo.className = "answerBtn";
+
+    // var answerThree = document.createElement("button");
+    // answerThree.className = "answerBtn";
+
+    // var answerFour = document.createElement("button");
+    // answerFour.className = "answerBtn";
+  
+    // // Providing answer text 
+    
+    
+    // answerTwo.innerText = Questions[id].a[1].text;
+    // answerThree.innerText = Questions[id].a[2].text;
+    // answerFour.innerText = Questions[id].a[3].text;
+  
+    // // Providing the true or false value to the options
+    
+    // answerTwo.value = Questions[id].a[1].isCorrect;
+    // answerThree.value = Questions[id].a[2].isCorrect;
+    // answerFour.value = Questions[id].a[3].isCorrect;
+  
+    // var selected = "";
+  
+    // // Show selection for answerOne
+    // answerOne.addEventListener("click", () => {
+    //    selected = answerOne.value;
+    // })
+  
+    // // Show selection for answerTwo
+    // answerTwo.addEventListener("click", () => {
+    //    selected = answerTwo.value;
+    // })
+  
+    // // Show selection for answerThree
+    // answerThree.addEventListener("click", () => {
+    //     selected = answerThree.value;
+    // })
+  
+    // // Show selection for answerFour
+    // answerFour.addEventListener("click", () => {
+    //     selected = answerFour.value;
+    // })
+  
+    // // Grabbing the evaluate button
+    // const evaluate = document.getElementsByClassName("evaluate");
+    
+    // Evaluate method
+//     evaluate[0].addEventListener("click", () => {
+//         if (selected == "true") {
+//             result[0].innerHTML = "Correct";
+//           } else {
+//             result[0].innerHTML = "Wrong";
+     
+//         }
+//     })

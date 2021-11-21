@@ -14,30 +14,17 @@
   <header>
     <a href="#view-high-score" class="highScoreShow">View High Score</a>
     <p>Timer: <span id="timer">60</span></p>
-    <!-- <form id="task-form">
-      <div class="form-group">
-        <input type="text" name="task-name" placeholder="Enter Task Name" />
-      </div>
-      <div class="form-group">
-        <select name="task-type" class="select-dropdown">
-          <option value="" selected disabled>Pick a task type</option>
-          <option value="Print">Print</option>
-          <option value="Web">Web</option>
-          <option value="Mobile">Mobile</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <button class="btn" id="save-task" type="submit">Add Task</button>
-      </div>
-    </form> -->
   </header>
 
   <main class="page-content" id="page-content">
+    <h1 id="intro-h1" class="intro-h1">Coding Quiz Challenge</h1>
+    <p id="intro-text" class="intro-text">Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score/time by 10 seconds</p>
+    <button id="introBtn" class="introBtn">Start</button>
     <!-- Display for questions and content -->
     <section id="content-box" class="task-list-wrapper">
       <h2 id="top-box" class="top=box"></h2>
       <div id="question-box" class="question-box"></div>
-      <div id="answers" class="answers"></div>
+      <div id="answer-box" class="answer-box"></div>
       <h1 id="result" class="result"></h1>
     </section>
 
