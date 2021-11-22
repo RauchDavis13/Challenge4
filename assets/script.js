@@ -2,6 +2,11 @@ var timer = 60;
 var startBtn = document.querySelector("#introBtn");
 var introH1 = document.querySelector("#intro-h1");
 var introText = document.querySelector("#intro-text");
+const question = document.getElementById("question-box");
+const answerList = document.querySelector("#answer-box");
+const showResult = document.querySelector("#result");
+var counter = document.querySelector("#timer");
+var screen = document.querySelector("#content-box"); 
 var ansTestValue = "";
 var answerId = "";
 
@@ -52,22 +57,6 @@ const Questions = [{
       ]    
    }
 ]
-
-
-
-
-
-
-var counter = document.querySelector("#timer");
-
-var screen = document.querySelector("#content-box");
-
-
-// var screenContent = function() {
-//   document.getElementById("page-content").innerHTML = Questions[1];
-// }
-// screenContent();
-
   
 // Set start
 var start = true;
@@ -102,13 +91,7 @@ function begin () {
 
 // Cycle through question array
 function iterate() {
-  const question = document.getElementById("question-box");
-  const answerList = document.querySelector("#answer-box");
-  const showResult = document.querySelector("#result");
-  
 
-  
- 
   // loops through Questions array and shows "q" (the question)
  
   for (var i = 0; i < Questions.length; i++) {
@@ -117,58 +100,54 @@ function iterate() {
     console.log(Questions[i].q);
 
     console.log(Questions[i].a.length);
-      var answerButton = function() {  
-        // loops through "a" (answer choices) array of Questions array, and creates answer choice buttons
-        for (var j=0; j < Questions[id].a.length; j++) {
-          const aId= j;
-          answerId = Questions[id].a[aId].ansId;
-          console.log(Questions[id].a[aId]);
-          console.log(Questions[id].a[aId].text);
-          console.log(answerId);       
+    var answerButton = function() {  
+      // loops through "a" (answer choices) array of Questions array, and creates answer choice buttons
+      for (var j=0; j < Questions[id].a.length; j++) {
+        const aId= j;
+        answerId = Questions[id].a[aId].ansId;
+        console.log(Questions[id].a[aId]);
+        console.log(Questions[id].a[aId].text);
+        console.log(answerId);       
                 
-          var answer = document.createElement("button");
-          answer.setAttribute("class", "answerBtn");
-          //answer.setAttribute("ansId", answerId);
-          answer.innerText = Questions[id].a[aId].text;
-          answer.ansIdNum = Questions[id].a[aId].ansId;
-          answer.value = Questions[id].a[aId].isCorrect;
+        var answer = document.createElement("button");
+        answer.setAttribute("class", "answerBtn");
+        //answer.setAttribute("ansId", answerId);
+        answer.innerText = Questions[id].a[aId].text;
+        answer.ansIdNum = Questions[id].a[aId].ansId;
+        answer.value = Questions[id].a[aId].isCorrect;
 
-          console.log(answer.ansIdNum);
+        console.log(answer.ansIdNum);
           
-          ansTestValue = answer.value;
-          answerList.appendChild(answer);
-          answer.addEventListener("click", ansEval); 
-
-        }
+        ansTestValue = answer.value;
+        answerList.appendChild(answer);
+        answer.addEventListener("click", ansEval); 
+      }     
       
       return answer;
+      
+    }
     
-
-    }
-     
   }
-  
-
-  var ansEval = function () {
-    //console.log(answer.ansIdNum);
-    if (ansTestValue = true) {
-      showResult.textContent = "Correct!  Good job, 10pts added";
-      score = score + 10;
-  
-    } else {
-      showResult.textContent = "Wrong Answer!.  10pts deducted";
-      score = score - 10;
-    }
-  }
-  answerButton();
-
-  console.log(answerId);
-  console.log(ansTestValue);
-  
-  
+  answerButton(); 
 }
 
-   
+
+var ansEval = function () {
+  console.log(answerId);
+  console.log(ansTestValue);
+  if (ansTestValue = true) {
+    showResult.textContent = "Correct!  Good job, 10pts added";
+    score = score + 10;
+  
+  } else {
+    showResult.textContent = "Wrong Answer!.  10pts deducted";
+    score = score - 10;
+  }
+}
+
+console.log(answerId);
+console.log(ansTestValue);   
+
 startBtn.addEventListener("click", begin);
 
 
